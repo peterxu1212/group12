@@ -1,0 +1,9 @@
+\begin{thebibliography}{}
+
+\bibitem[\UnexpandableProtect\SCcite{Domingos}{2012}]{domingos2012few}
+Domingos, Pedro.
+\newblock 2012.
+\newblock \Wrapquotes{A few useful things to know about machine learning}.
+\newblock \textitswitch{Communications of the ACM}  55 (10): 78--87.
+
+\end{thebibliography}
