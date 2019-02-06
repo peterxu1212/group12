@@ -1,1 +1,16 @@
 to do
+
+Tasks:
+
+1) Implement Bernoulli Naive Bayes from scratch
+
+2) Run experiments using two different classifiers from SciKit Learn
+-logistic regression
+-decision trees
+-support vector machines
+
+3) Try two different feature extraction pipelines for processing text data (binary occurrences vs tf-idf) for one of the models
+
+4) model validation pipeline (k-fold cross validation or a held-out validation
+
+6) Literature review
