@@ -360,7 +360,7 @@ pclf = Pipeline([
     ('vect', CountVectorizer(min_df=3, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4), stop_words = 'english')),
     ('tfidf', TfidfTransformer(use_idf=True, smooth_idf=True, sublinear_tf=True, )),
     ('norm', Normalizer()),
-    ('clf', LogisticRegression(penalty = 'l2', dual = True, random_state = 0, solver='liblinear', C=20)),
+    ('clf', LogisticRegression(penalty = 'l2', dual = True, random_state = 0, solver='liblinear', C=1)),
 ])
     
     
@@ -433,9 +433,9 @@ print("\n\n model_search_LR.cv_results_ = \n", model_search_LR.cv_results_)
 
 logger.info("start fit for pclf")
 
-pclf.fit(X_train_whole, Y_train_whole)
+#pclf.fit(X_train_whole, Y_train_whole)
 
-#pclf.fit(X_train, Y_train)
+pclf.fit(X_train, Y_train)
 
 
 logger.info("end fit for pclf")
