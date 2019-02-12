@@ -16,6 +16,8 @@ from sklearn.preprocessing import Normalizer
 
 from sklearn.model_selection import GridSearchCV
 
+from sklearn.model_selection import cross_val_predict
+
 import numpy as np
 
 from sklearn.exceptions import FitFailedWarning
@@ -357,10 +359,12 @@ print("len of X_train and Y_train", len(X_train), len(Y_train))
 
 
 pclf = Pipeline([
-    ('vect', CountVectorizer(min_df=3, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4), stop_words = 'english')),
-    ('tfidf', TfidfTransformer(use_idf=True, smooth_idf=True, sublinear_tf=True, )),
+    #('vect', CountVectorizer(min_df=2, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4), stop_words = 'english')),
+    ('vect', CountVectorizer(min_df=2, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
+    #('vect', CountVectorizer(min_df=2, max_df=0.85, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
+    ('tfidf', TfidfTransformer(use_idf=True, smooth_idf=True, sublinear_tf=True)),
     ('norm', Normalizer()),
-    ('clf', LogisticRegression(penalty = 'l2', dual = True, random_state = 0, solver='liblinear', C=1)),
+    ('clf', LogisticRegression(penalty = 'l2', dual = True, random_state = 0, solver='liblinear', C=20)),
 ])
     
     
@@ -379,6 +383,7 @@ pclf = Pipeline([
     
     
 params = {"vect__ngram_range": [(1,4)],
+             "vect__min_df" : [2],           
             "clf__C": [30]
 }
 
@@ -398,6 +403,8 @@ params = {"vect__ngram_range": [(1,1),(1,2),(1,3),(1,4)],
 params = {"clf__C": [1, 4, 16, 32]
 }
 """
+
+
 
 """
 model_search_LR = GridSearchCV(pclf, param_grid = params, scoring = 'roc_auc', cv = 5, verbose = 10, error_score='raise', iid=True, n_jobs=4)
@@ -429,27 +436,64 @@ print("\n\n model_search_LR.best_params_ = \n", model_search_LR.best_params_)
 print("\n\n model_search_LR.best_estimator_ = \n", model_search_LR.best_estimator_)
 
 print("\n\n model_search_LR.cv_results_ = \n", model_search_LR.cv_results_)
+
 """
+
+
+
+
+
 
 logger.info("start fit for pclf")
 
-#pclf.fit(X_train_whole, Y_train_whole)
+pclf.fit(X_train_whole, Y_train_whole)
 
-pclf.fit(X_train, Y_train)
+#pclf.fit(X_train, Y_train)
 
 
 logger.info("end fit for pclf")
+
 
 
 logger.info("start predict for X_test ")
 
 #Y_test_pred = model_search_LR.predict(X_test)
 
-#predicted = cross_val_predict(pclf, X_test, y, cv=5)
+#Y_test_cv_pred = cross_val_predict(pclf, X_test, Y_test, cv=5, n_jobs=2)
 
 Y_test_pred = pclf.predict(X_test)
 
+
+Y_test_cv_pred = []
+Y_test_cv_pred.extend([0] * int(len(Y_test) / 2))
+Y_test_cv_pred.extend([1] * int(len(Y_test) / 2))
+
+print("\n\n type and len of Y_test_cv_pred: ", type(Y_test_cv_pred), len(Y_test_cv_pred))
+
+
 logger.info("end predict for X_test")
+
+
+
+
+print("\n\n\n\n")
+
+
+
+logger.info("start metrics.classification_report ")
+
+print("\n\nmetrics.classification_report for Y_test and Y_test_pred \n")
+
+print(metrics.classification_report(Y_test, Y_test_pred))
+
+
+print("\n\nmetrics.classification_report for Y_test and Y_test_cv_pred \n")
+
+print(metrics.classification_report(Y_test, Y_test_cv_pred))
+
+logger.info("end metrics.classification_report ")
+
+
 
 
 
@@ -465,7 +509,7 @@ logger.info("end predict for X_list_real_test_raw")
 
 print("\n\n\n\n")
 
-print("Y_test = \n\n", Y_test, type(Y_test))
+#print("Y_test = \n\n", Y_test, type(Y_test))
 
 print("\n\n\n\n")
 
@@ -473,17 +517,17 @@ print("\n\n\n\n")
 
 list_Y_test_pred = Y_test_pred.tolist()
 
-print("list_Y_test_pred = \n\n", list_Y_test_pred, type(list_Y_test_pred))
+#print("list_Y_test_pred = \n\n", list_Y_test_pred, type(list_Y_test_pred))
 
 print("\n\n\n\n")
 
 
+#Y_test_cv_pred
 
-logger.info("start metrics.classification_report ")
+#list_Y_test_cv_pred = Y_test_cv_pred.tolist()
 
-print(metrics.classification_report(Y_test, Y_test_pred))
+#print("list_Y_test_cv_pred = \n\n", list_Y_test_cv_pred, type(list_Y_test_cv_pred))
 
-logger.info("end metrics.classification_report ")
 
 
 
