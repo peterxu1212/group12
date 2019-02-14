@@ -25,17 +25,25 @@ import os
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 
+#from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.stem import PorterStemmer
+
+from nltk.stem import SnowballStemmer
 
 import unicodedata
 
 
 def remove_stop_words(words):
     
-    filtered_words = [word for word in words if word not in nltk_eng_stop_words]
+    filtered_words = [word for word in words if word not in nltk_eng_stop_words_revised]
     
     return filtered_words
 
-
+def cleanpunc(sentence): 
+    cleaned = re.sub(r'[?|!|\'|"|#]', r' ', sentence)
+    cleaned = re.sub(r'[.|,|)|(|\|/]', r' ', cleaned)
+    return  cleaned
 
 
 def get_detail_context(str_error, str_text, i_context_range=10):
@@ -129,60 +137,138 @@ def get_detail_context(str_error, str_text, i_context_range=10):
 
 def clean_up_data(in_str_text):
     
+    out_str_text = in_str_text
+    if not b_cleanup:
+        return out_str_text
+    
     #'
-    in_str_text = re.sub(r'[\u2019]', '\'', in_str_text, re.UNICODE)
-    in_str_text = re.sub(r'[\u2018]', '\'', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\u2019]', '\'', out_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\u2018]', '\'', out_str_text, re.UNICODE)
     
     #-
-    in_str_text = re.sub(r'[\u2013]', '', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\u2013]', '', out_str_text, re.UNICODE)
     
     #"
-    in_str_text = re.sub(r'[\u201c]', '', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\u201c]', '', out_str_text, re.UNICODE)
     #"
-    in_str_text = re.sub(r'[\u201d]', '', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\u201d]', '', out_str_text, re.UNICODE)
     
     
     #file_content_wo_html_tags = re.sub(r'[\u0308]', '', file_content_wo_html_tags, re.UNICODE)
     
     
-    in_str_text = re.sub(r'[\u0131]', '', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\u0131]', '', out_str_text, re.UNICODE)
     
-    in_str_text = re.sub(r'[\u3001]', '', in_str_text, re.UNICODE)
-    
-    
-    in_str_text = re.sub(r'[\x80-\xfe]', '', in_str_text, re.UNICODE)
-    
-    in_str_text = re.sub(r'[\x96]', '', in_str_text, re.UNICODE)
-    in_str_text = re.sub(r'[\x9e]', '', in_str_text, re.UNICODE)
-    in_str_text = re.sub(r'[\xab]', '', in_str_text, re.UNICODE)
-    
-    in_str_text = re.sub(r'[\x85]', '', in_str_text, re.UNICODE)                
-    
-    in_str_text = re.sub(r'[\x8e]', '', in_str_text, re.UNICODE)
-    
-    in_str_text = re.sub(r'[\xbb]', '', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\u3001]', '', out_str_text, re.UNICODE)
     
     
-    in_str_text = re.sub(r'[\x80-\xfe]', '', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\x80-\xfe]', '', out_str_text, re.UNICODE)
+    
+    out_str_text = re.sub(r'[\x96]', '', out_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\x9e]', '', out_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\xab]', '', out_str_text, re.UNICODE)
+    
+    out_str_text = re.sub(r'[\x85]', '', out_str_text, re.UNICODE)                
+    
+    out_str_text = re.sub(r'[\x8e]', '', out_str_text, re.UNICODE)
+    
+    out_str_text = re.sub(r'[\xbb]', '', out_str_text, re.UNICODE)
     
     
-    in_str_text = re.sub(r'[\u20a4]', '', in_str_text, re.UNICODE)
-    
-    in_str_text = re.sub(r'[\u2227]', '', in_str_text, re.UNICODE)
-    
-    in_str_text = re.sub(r'[\u25bc]', '', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\x80-\xfe]', '', out_str_text, re.UNICODE)
     
     
+    out_str_text = re.sub(r'[\u20a4]', '', out_str_text, re.UNICODE)
     
-    in_str_text = re.sub(r'[\uf04a]', '', in_str_text, re.UNICODE)
+    out_str_text = re.sub(r'[\u2227]', '', out_str_text, re.UNICODE)
+    
+    out_str_text = re.sub(r'[\u25bc]', '', out_str_text, re.UNICODE)
     
     
-    in_str_text = re.sub(r'[\uf0b7]', '', in_str_text, re.UNICODE)
+    
+    out_str_text = re.sub(r'[\uf04a]', '', out_str_text, re.UNICODE)
+    
+    
+    out_str_text = re.sub(r'[\uf0b7]', '', out_str_text, re.UNICODE)
+    
+    
+    
+    return out_str_text
+
+
+def further_process_data(in_str_text):
+
+    
+     #word_list = uni_code_converted.split()
+                
+    #word_list = remove_stop_words(word_list)
+    
+    #uni_code_converted_wo_sw = " ".join(word_list)
+    
+    
+    
+    #raw_word_list = in_str_text.split()
+    
+    #raw_word_list = remove_stop_words(raw_word_list)
     
     out_str_text = in_str_text
     
-    return out_str_text
     
+    if b_negate:
+        #out_str_text = re.sub(r'[^\w\s]', ' ', out_str_text)
+        pass
+    
+    
+    if b_wo_punctuation:    
+        #out_str_text = re.sub(r'[^\w\s]', ' ', out_str_text, re.UNICODE)
+        out_str_text = re.sub(r'[^\w\s]', ' ', out_str_text)
+    
+    
+    tnd_words = word_tokenize(out_str_text)
+    
+    
+    #
+    #stemmer = PorterStemmer()
+ 
+    #tnd_words = [stemmer.stem(word) for word in tnd_words]
+    
+    
+    #stemmer = SnowballStemmer('english')
+    #tnd_words = [stemmer.stem(word) for word in tnd_words]
+    
+        
+    if b_w_lemmatize:
+    
+        lemmatizer = WordNetLemmatizer() 
+        tnd_words = [lemmatizer.lemmatize(word) for word in tnd_words]
+    
+    
+    
+    
+    
+    
+    #file_content_w_1ws = ' '.join(word_list)
+    
+    #file_content_pure_english = re.sub("[^a-zA-Z]", " ", file_content_w_1ws)
+    
+    
+    
+    #word_list_pure_english = file_content_pure_english.split()
+    
+    #file_content_pure_english_w_1ws = ' '.join(word_list_pure_english)
+    
+    #if b_wo_punctuation:
+        #file_content = re.sub(r'[^\w\s]', ' ', file_content)
+        
+    out_str_text = " ".join(tnd_words)
+    
+    
+    
+    #out_str_text = str_text_wo_punctuation
+
+    return out_str_text   
+
+
 
 
 def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_file_name_list = [], b_guess_when_exception=False, b_test=False, b_clean_up=False):
@@ -231,14 +317,41 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
 
                 file_content = file_handle.read()
                 
+                
+                
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n file_content = ", file_content)
+                
+                
                 tmp_soup = BeautifulSoup(file_content, 'html.parser')
                 
                 file_content_wo_html_tags = tmp_soup.get_text()
                 
                 
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n file_content_wo_html_tags = ", file_content_wo_html_tags)
+                
+                
                 file_content_wo_html_tags_lc = file_content_wo_html_tags.lower()
                 
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n file_content_wo_html_tags_lc = ", file_content_wo_html_tags_lc)
+                
+                
                 str_text_cleaned = clean_up_data(file_content_wo_html_tags_lc)
+                
+                
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n str_text_cleaned = ", str_text_cleaned)
+                
                 
                 tmp_processed_text = str_text_cleaned
                 
@@ -257,6 +370,11 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
                 
                 code_converted = unicodedata.normalize('NFKD', str_text_cleaned).encode('ascii')
                 
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n code_converted = ", code_converted)
+                
                 uni_code_converted = code_converted
                 if isinstance(code_converted, bytes):
                     uni_code_converted = str(code_converted, encoding='utf-8');
@@ -264,37 +382,24 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
                 
                 
                 
-                str_processed_text = uni_code_converted
-                
-                
-                
-                
-                #word_list = uni_code_converted.split()
-                
-                #word_list = remove_stop_words(word_list)
-                
-                #file_content_w_1ws = ' '.join(word_list)
-                
-                #file_content_pure_english = re.sub("[^a-zA-Z]", " ", file_content_w_1ws)
-                
-                
-                
-                #word_list_pure_english = file_content_pure_english.split()
-                
-                #file_content_pure_english_w_1ws = ' '.join(word_list_pure_english)
-                
-                #if b_wo_punctuation:
-                    #file_content = re.sub(r'[^\w\s]', ' ', file_content)
-                    
-                str_processed_text = uni_code_converted
-                
-                
-                """
                 if str_file_name == "10327_7.txt":
                     print("\n\n\n\n\n\n str_file_name = ", str_file_name)
-                    print("\n\n\n\n\n\n str_processed_text = ", str_processed_text)
+                    print("\n\n\n\n\n\n uni_code_converted = ", uni_code_converted)
                 
-                """
+                #str_processed_text = uni_code_converted
+                
+                str_processed_text = further_process_data(uni_code_converted)
+                
+                
+                
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n str_processed_text = ", str_processed_text) 
+                
+                
+                            
+                
             
                 
             else:
@@ -304,31 +409,67 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
             
             str_error = str(e)
             
-            str_tmp = "pre_process_data_files Exception e = " + str(type(e)) + ":" + str_error + " when execute encode  for str_full_file_name = " + str(str_full_file_name) + "\n"
-        
-            str_exception_msg = str_tmp
+            if type(e) is UnicodeEncodeError:
             
-            str_out_of_gdc, i_unicode_num, str_unicode = get_detail_context(str_error, file_content_wo_html_tags)
+                str_tmp = "pre_process_data_files Exception e = " + str(type(e)) + ":" + str_error + " when execute encode  for str_full_file_name = " + str(str_full_file_name) + "\n"
             
-            str_exception_msg += str_out_of_gdc
+                str_exception_msg = str_tmp
+                
+                str_out_of_gdc, i_unicode_num, str_unicode = get_detail_context(str_error, file_content_wo_html_tags)
+                
+                str_exception_msg += str_out_of_gdc
+                
+                error_msg_item['error_msg'] = str_exception_msg
+                error_msg_item['error_unicode_num'] = i_unicode_num
+                error_msg_item['error_unicode_str'] = str_unicode
+                
+                str_output_exceptions += str_exception_msg
             
-            error_msg_item['error_msg'] = str_exception_msg
-            error_msg_item['error_unicode_num'] = i_unicode_num
-            error_msg_item['error_unicode_str'] = str_unicode
+                #logger.warning("%s", str_exception_msg)
+                
+                out_error_msg_set.append(error_msg_item)
             
-            str_output_exceptions += str_exception_msg
-        
-            #logger.warning("%s", str_exception_msg)
-            
-            out_error_msg_set.append(error_msg_item)
-            
+            else:
+                
+                logger.warning("other error !!!!!! %s ", str_error)
+                logger.warning(type(e))
+                
             #print(str_tmp)
             
             if not b_guess_when_exception:
                 continue
             else:
                 #str_processed_text = "bad"
-                str_processed_text = tmp_processed_text
+                
+                
+                
+                code_converted = unicodedata.normalize('NFKD', tmp_processed_text).encode('ascii', errors='ignore')
+                
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n exception str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n code_converted = ", code_converted)
+                
+                uni_code_converted = code_converted
+                if isinstance(code_converted, bytes):
+                    uni_code_converted = str(code_converted, encoding='utf-8');
+                            
+                    
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n exception str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n uni_code_converted = ", uni_code_converted)
+                
+                #str_processed_text = uni_code_converted
+                
+                str_processed_text = further_process_data(uni_code_converted)
+                
+                
+                if str_file_name == "10327_7.txt":
+                    print("\n\n\n\n\n\n exception str_file_name = ", str_file_name)
+                    print("\n\n\n\n\n\n str_processed_text = ", str_processed_text)
+                
+                #str_processed_text = tmp_processed_text
                 
         
            
@@ -445,7 +586,17 @@ fout_t2w = open('./data_preprocess_results.txt', 'w', buffering=1)
     
 b_partial = False
 
-b_wo_punctuation = True
+
+b_cleanup = True
+
+
+b_w_lemmatize = True
+
+
+b_wo_punctuation = False
+
+
+b_negate = False
 
 
 i_partial_count = 500
@@ -473,10 +624,33 @@ print("nltk_eng_stop_words = \n", nltk_eng_stop_words)
 
 
 
+nltk_eng_stop_words_revised = {'she', 'and', 'he', "you'd", 'itself', 'as', 'being', 'with', 'are', 'ours', "you're", 'd', 'did', 'it', 'hers', 'have', 'her', "she's", 'doing', 'be', 'because', "you'll", 'me', 'to', 'while', 'the', 'such', 'whom', 'yourselves', 'a', 'its', 'am', 'him', 'his', 'them', 'why', 'how', 'yourself', 'if', 'in', 'into', 'myself', 'do', "you've", 'had', 'when', 'some', 'yours', 'who', 'been', 'himself', 'where', 'has', 'these', 've', 'ourselves', 'your', "that'll", 'those', 'at', 'then', 'was', 'i', 'theirs', 'is', 'they', 'there', 'does', 'through', 'so', 'having', 'that', 'our', 'their', 'or', 'themselves', 's', 'about', 'an', 'which', 'we', 'on', 'my', 'here', 'were', 'that', 'this', 'you', 'herself', 'from', "it's", 'for', 'between', 'by', 'of'}
 
-str_json_fn_training = "../" + "training" + "_set.json"
 
-str_json_fn_testing = "../" + "testing" + "_set.json"
+print("nltk_eng_stop_words_revised = \n", nltk_eng_stop_words_revised)
+
+str_fn_postfix = ""
+
+
+
+if b_cleanup:
+    str_fn_postfix += "_cleanup"
+
+if b_negate:
+    str_fn_postfix += "_negate"
+
+if b_wo_punctuation:
+    str_fn_postfix += "_wo_punctuation"
+
+if b_w_lemmatize:
+    str_fn_postfix += "_w_lemmatize"
+    
+
+
+
+str_json_fn_training = "../" + "training" + "_set" + str_fn_postfix + ".json"
+
+str_json_fn_testing = "../" + "testing" + "_set" + str_fn_postfix + ".json"
 
 
 
@@ -509,7 +683,7 @@ tmp_err_item['error_unicode_str'] = ""
 tmp_err_set.append(tmp_err_item)
 
 
-str_err_fn = "./process_err_msg_set.json"
+str_err_fn = "./process_err_msg_set" + str_fn_postfix + ".json"
 
 
 if os.path.isfile(str_err_fn):
