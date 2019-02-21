@@ -1,0 +1,103 @@
+\documentclass{amsart}
+\usepackage{amsmath}
+\usepackage{minted}
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{subfig}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+\lstset{
+	basicstyle=\small\ttfamily,
+	columns=flexible,
+	breaklines=true
+}
+\setminted[c]{
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1,
+	fontsize=\footnotesize,
+	bgcolor=black,
+	style=vim,
+	linenos
+}
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-1in}
+\calclayout
+
+\makeatletter
+\g@addto@macro{\newpage}{\nointerlineskip}
+\makeatother
+
+
+
+\begin{document}
+\vspace*{-80pt}
+
+\title{IMDB Sentiment Analysis}
+
+\author{Luo, Robin (260851506)}
+\author{Rousseau, Marc-Andre  (260089646)}
+\author{Xu Bide, (260711367)}
+
+\subjclass[2018]{Comp 551}
+\date{\today}
+\begin{abstract}
+We used ML techniques including logistic regression, naive Baye's and support vector machines to process the data from a large dataset of reviews and train our software to be able to distinguish a favourable review from a negatve one.  In addition to the three methods listed, we used TF-IDF, where the frequency of occurrence of the words within the document and the dataset are both taken into account to ascertain word importance.  Our model was submitted to a kaggle competition and we obtained a score of 0.91786 for the model using a linear SVM, tf-idf.  This is a significant improvement on the Naive Bayes classification method which has an accuracy of approximately 0.83 \end{abstract}
+\maketitle
+\section{Introduction}(5+sentences)
+The ubiquity of social networks is no longer a budding phenomenon, it is the reality of the world in which we live.  Many popular sites have included ways for users to share their opinions on a variety of topics and therefore the ability to mine through these posts and determine how users feel about the things being discussed is extremely useful for businesses.  Knowing that a user or group of users desire something or find it appealing creates a market of opportunity for companies in search of low risk opportunities to expand their business operations.  In addition, the analyses performed, once properly summarized and visualized effectively have tremendous value in themselves.  For our project, we were given 12500 positive and 12500 negative reviews to train our algorithm and another 25000 to test our code and submit our best guess as to the correct labeling of the test reviews as either positive or negative.  Our best model which used a linear SVM (0.918 accuracy), was much better than Naive Bayes (0.83).
+\section{Related Work}(4+sentences)
+Machine learning and sentiment analysis are hot topics of research with many machine learning conferences having several talks on the topic.  For example, Twitter has been releasing datasets to be mined for things like whether a piece of task is positive, negative or neutral.  Recently, a group of researchers extended this problem to five classification categories and added arabic language content (Rosenthal, 2017).  Many teams submitted ML proposals to classify the twitter posts and the top performing groups used deep neural networks (DNNs) (Rosenthal, 2017).  In addition, out of the top 10 submissions, the second most successful approach to DNNs involved the use of SVMs which is consistent with our best performing model for this project.  A more directly related work involved taking into account sentence negations (Das, 2018).  In this paper, the authors have decided to use a shortcut for negation by negating the word immediately following a negation.  One example of this method would be to take the sentence "I am not happy" which gets converted to "I am not\_happy".  The benefit of this is that by changing only one word, they are able to change the meaning of the entire sentence (Das, 2018).
+\section{Dataset and Setup}(3+sentences)
+Our training dataset consisted of a list of 25000 reviews which we began by tokenizing followed by some cleaning where unicode characters which were not relevant to analysis were mapped to the empty string.... (what else?)
+\section{Proposed Approach}(7+sentences)
+Here we need a description of the full model (should be in the image that Peter is planning to do).\\
+During the decision of the parameters, we mainly worked on three parameters. Firstly, we need to decide the value of min\_df in Count Vectorizer, which is a percentage means that ignoring the terms that appear in less than min\_df of documents. Because there might be many random words appear just few times which are not related to positiveness of the reviews. By eliminating them, the precision will be higher, and the running time will also get lower. However, setting a large value of min\_df will eliminate some useful words. Therefore, we tried several values of min\_df and got the scores and running times of them. Figure.1 shows the relationship between min\_df and score. And Figure.2 shows the relationship between min\_df and time. From the plots, we knew that the peak score happens when min\_df equals to 0.0006. While the running time is generally getting lower when the value of min\df increases. So set the value of min\_df to 0.0006.\\ 
+Secondly, we decided the value of max\_df which is also in Count Vectorizer. Similar to min\_df, max\_df is also a percentage which means that ignoring the terms that appear in more than max\_df of documents. Since there are many words such as 'movie', 'film', 'director' will appear in most of the movie reviews while they are also not related to the positiveness of the reviews. Also by eliminating them, the precision will increase and the running time will be lower. We cannot set this value as low as possible, or we will eliminating some important words such as 'good' and 'bad' which also appear many times in documents. Like in step 1, we also tried several values of max\_df and got the scores and running times of them. Figure.3 shows the relationship between max\_df and score. Figure.4 shows the relationship between max\_df and running time. From the plots, we found that the score reaches the peak when max\_df equals to 0.96 and 0.98. However, when setting max\_df to 0.96, the running time will be lower than setting it to 0.98. Therefore, we set the value of max\_df to 0.96.\\ 
+Finally, we decided the value of C in SVM. C is the penalty parameter in SVM, lower C means simplicity first, which penalize less to mistakes. While higher C means making few mistakes first, which penalize more to mistakes. When C is too low, it will lead to underfitting and when C is too high, it will lead to overfitting. Figure.5 shows the relationship between C and score, Figure.6 shows the relationship between C and running time. the score reaches the peak when C equals to 40 and 60, and the running time increases as C increases. Therefore, we set the value of C to 40.\\   
+\begin{itemize}
+	\item Discussion of algorithm selection - why did we end up using SVM?  need plots to justify.
+	\item Splitting of Data into validation/training, etc...
+	\item Regularization strategies (did we use any?  if so, what effect did it have)
+	\item Did we use any optimization tricks?
+	\item We need plots to justify hyperparameter selection. Checked!
+	\item Background/motivation for each model (i can do this, but I need to know everything that was done)
+\end{itemize}
+\section{Results} (7+sentences)
+This section needs to be filled with some of the plots needed to demonstrate the performance of the various models we used and should also incorporate plots for the hyperparameter fitting.
+\section{Discussion and Conclusion}(3+ Sentences)
+This part can be done last
+\section{Division of Work}
+\begin{itemize}
+\item{\textbf{Robin Luo}}: Model fitting 
+\item{\textbf{Marc-Andre Rousseau}}: Literature research, TeXing, some minor coding.
+\item{\textbf{Peter Xu}}: Coding, feature selection and hyperparameter fitting.
+\end{itemize}
+\section{References}
+\begin{itemize}
+	\item [1] Rosenthal, Sara, et al. “SemEval-2017 task 4: Sentiment analysis in Twitter” Proceedings of the 11th International Workshop on Semantic Evaluations (SemEval-2017), pp. 502–518.
+	\item [2] Das, Bijoyan. Chakraborty, Sarit. "An improved text sentiment classification model using tf-idf and next word negation" June, 2017, eprint arXiv:1806.06407
+\end{itemize}
+\end{document}
+%\begin{figure}[H]
+%	\centering
+%	\subfloat[MSE vs $\beta$ with 160 word feature vector]{{\includegraphics[width=5.5cm]{msevsbeta160} }}%
+%	\qquad
+%	\subfloat[MSE vs $\beta$ with 60 word feature vector]{{\includegraphics[width=5cm]{msevsbeta60words} }}
+%	\caption{\textbf{A comparison the plots of MSE vs beta for 60 and 160 word feature vectors.}  The other hyperparameters were not constant and needed to be changed since what worked for 60 features did not work for 160.  Despite this, what we can see is a similar behaviour and shape between the two plots but with a difference in the scale.  The rise observed in plot B was also seen in other plots of A where the values were closer to zero than the ones seen in this diagram. }
+%	\label{fig:betavsMSE}
+%\end{figure}
