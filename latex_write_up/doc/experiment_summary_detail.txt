@@ -1,0 +1,1171 @@
+
+
+
+
+
+
+========================================================================================================================================================================
+
+run for text_simple_cleanup
+
+
+bnb_rst.txt
+
+naive bayes
+
+
+
+2019-02-21 20:11:58,935 - Project2Group12 - INFO - start fit for pclf
+
+2019-02-21 20:15:39,895 - Project2Group12 - INFO - end fit for pclf
+
+4 min
+
+2019-02-21 20:15:39,895 - Project2Group12 - INFO - start predict for X_test 
+
+2019-02-21 20:32:48,604 - Project2Group12 - INFO - end predict for X_test
+
+17 min
+
+
+
+2019-02-21 20:32:48,605 - Project2Group12 - INFO - start metrics.classification_report 
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.83383   0.87984   0.85622      2555
+           1    0.86675   0.81677   0.84102      2445
+
+   micro avg    0.84900   0.84900   0.84900      5000
+   macro avg    0.85029   0.84831   0.84862      5000
+weighted avg    0.84993   0.84900   0.84879      5000
+
+
+2019-02-21 20:32:48,636 - Project2Group12 - INFO - start predict for X_list_real_test_raw 
+
+ 
+2019-02-21 22:08:52,739 - Project2Group12 - INFO - end predict for X_list_real_test_raw
+
+
+96 min
+
+
+group12_bernoulli_nb_1550804932_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+
+
+
+ len of self.features =  67708
+
+
+
+========================================================================================================================================================================
+
+run for onlyletter text 
+
+
+lr_bow_onlyletter_1gram.txt
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.90223   0.87045   0.88606      2555
+           1    0.86943   0.90143   0.88514      2445
+
+   micro avg    0.88560   0.88560   0.88560      5000
+   macro avg    0.88583   0.88594   0.88560      5000
+weighted avg    0.88619   0.88560   0.88561      5000
+
+
+ spend_time for the fit = 10
+
+
+
+
+ i_len_fns =  27254 <class 'list'>
+
+ spend_time for the predict = 2
+
+ 1550812646
+ 
+ group12_logistic_regression_1550812646_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+ 
+ 
+========================================================================================================================================================================
+
+run for onlyletter text 
+
+
+lr_bow_onlyletter_14gram.txt
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.90662   0.87397   0.89000      2555
+           1    0.87308   0.90593   0.88920      2445
+
+   micro avg    0.88960   0.88960   0.88960      5000
+   macro avg    0.88985   0.88995   0.88960      5000
+weighted avg    0.89022   0.88960   0.88961      5000
+
+
+
+ i_len_fns =  104211 <class 'list'>
+ 
+ spend_time for the fit = 106
+
+ spend_time for the predict = 7
+
+ 
+ 1550812500
+ 
+ group12_logistic_regression_1550812500_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+ 
+ 
+ 
+ 
+
+========================================================================================================================================================================
+
+run for raw text 
+
+
+lr_bow_raw_1gram.txt
+
+basic with bag of word, raw text -- contervectorize only   
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.90317   0.86888   0.88570      2555
+           1    0.86821   0.90266   0.88510      2445
+
+   micro avg    0.88540   0.88540   0.88540      5000
+   macro avg    0.88569   0.88577   0.88540      5000
+weighted avg    0.88608   0.88540   0.88541      5000
+
+ spend_time for the fit = 29
+ 
+ spend_time for the predict = 4
+
+ 
+ i_len_fns =  27745 <class 'list'>
+ 
+ 1550802644
+ 
+ group12_logistic_regression_1550802644_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+
+
+========================================================================================================================================================================
+
+run for raw text 
+
+
+lr_bow_raw_12gram.txt
+
+
+basic with bag of word, raw text -- contervectorize only  
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.91097   0.88102   0.89574      2555
+           1    0.87979   0.91002   0.89465      2445
+
+   micro avg    0.89520   0.89520   0.89520      5000
+   macro avg    0.89538   0.89552   0.89520      5000
+weighted avg    0.89572   0.89520   0.89521      5000
+
+
+ i_len_fns =  166041 <class 'list'>
+
+ spend_time for the fit = 54
+
+ spend_time for the predict = 9
+ 
+ 1550803673
+ 
+ group12_logistic_regression_1550803673_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+
+
+========================================================================================================================================================================
+
+run for raw text 
+
+
+lr_bow_raw_13gram.txt
+
+
+basic with bag of word, raw text -- contervectorize only  
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.91144   0.88219   0.89658      2555
+           1    0.88089   0.91043   0.89541      2445
+
+   micro avg    0.89600   0.89600   0.89600      5000
+   macro avg    0.89617   0.89631   0.89600      5000
+weighted avg    0.89650   0.89600   0.89601      5000
+
+ spend_time for the fit = 114
+ 
+ spend_time for the predict = 14
+ 
+ 
+ i_len_fns =  290118 <class 'list'>
+ 
+ 1550804461
+ 
+ group12_logistic_regression_1550804461_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+
+========================================================================================================================================================================
+
+
+run for raw text 
+
+
+lr_bow_raw_14gram.txt
+
+basic with bag of word, raw text -- contervectorize only   
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.91230   0.87945   0.89558      2555
+           1    0.87860   0.91166   0.89482      2445
+
+   micro avg    0.89520   0.89520   0.89520      5000
+   macro avg    0.89545   0.89555   0.89520      5000
+weighted avg    0.89582   0.89520   0.89521      5000
+
+ spend_time for the fit = 230
+ 
+ spend_time for the predict = 230
+
+ 
+
+ i_len_fns =  342886 <class 'list'>
+
+1550801227
+
+group12_logistic_regression_1550801227_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+tfidf
+
+
+
+=========================================================================================================================================================================
+
+run for onlyletter text 
+
+
+lr_tfidf_onlyletter_1gram.txt
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.90846   0.87397   0.89088      2555
+           1    0.87333   0.90798   0.89031      2445
+
+   micro avg    0.89060   0.89060   0.89060      5000
+   macro avg    0.89090   0.89097   0.89060      5000
+weighted avg    0.89128   0.89060   0.89061      5000
+
+
+
+ spend_time for the fit = 7
+
+
+
+
+ i_len_fns =  27254 <class 'list'>
+ 
+ spend_time for the predict = 2
+
+ 
+ 1550812856
+ 
+ group12_logistic_regression_1550812856_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+
+=========================================================================================================================================================================
+
+run for onlyletter text 
+
+
+lr_tfidf_onlyletter_14gram.txt
+
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.91257   0.87828   0.89509      2555
+           1    0.87761   0.91207   0.89450      2445
+
+   micro avg    0.89480   0.89480   0.89480      5000
+   macro avg    0.89509   0.89517   0.89480      5000
+weighted avg    0.89547   0.89480   0.89481      5000
+
+
+ spend_time for the fit = 95
+
+
+
+
+ i_len_fns =  104211 <class 'list'>
+
+ spend_time for the predict = 6
+
+1550812417
+
+group12_logistic_regression_1550812417_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+ 
+ 
+=========================================================================================================================================================================
+run for raw text
+
+lr_tfidf_raw_1gram.txt
+
+
+basic with tfidf 
+
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.90835   0.87671   0.89225      2555
+           1    0.87569   0.90757   0.89134      2445
+
+   micro avg    0.89180   0.89180   0.89180      5000
+   macro avg    0.89202   0.89214   0.89180      5000
+weighted avg    0.89238   0.89180   0.89181      5000
+
+
+ i_len_fns =  27745 <class 'list'>
+
+ spend_time for the predict = 6
+ 
+ spend_time for the fit = 20
+
+1550802940
+
+group12_logistic_regression_1550802940_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+ 
+ 
+=========================================================================================================================================================================
+run for raw text
+
+lr_tfidf_raw_12gram.txt
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92199   0.89746   0.90956      2555
+           1    0.89574   0.92065   0.90803      2445
+
+   micro avg    0.90880   0.90880   0.90880      5000
+   macro avg    0.90887   0.90906   0.90879      5000
+weighted avg    0.90916   0.90880   0.90881      5000
+
+ spend_time for the fit = 55
+ 
+ spend_time for the predict = 8
+
+ 
+ i_len_fns =  166041 <class 'list'>
+
+1550803828
+
+group12_logistic_regression_1550803828_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+
+
+=========================================================================================================================================================================
+run for raw text
+
+lr_tfidf_raw_13gram.txt 
+ 
+ 
+basic with tfidf 
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92379   0.90137   0.91244      2555
+           1    0.89948   0.92229   0.91074      2445
+
+   micro avg    0.91160   0.91160   0.91160      5000
+   macro avg    0.91163   0.91183   0.91159      5000
+weighted avg    0.91190   0.91160   0.91161      5000
+
+ spend_time for the fit = 110
+ 
+ spend_time for the predict = 10
+ 
+ 
+ i_len_fns =  290118 <class 'list'>
+ 
+ 1550804091
+ 
+ group12_logistic_regression_1550804091_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+ 
+
+=========================================================================================================================================================================
+run for raw text
+
+lr_tfidf_raw_14gram.txt
+
+
+basic with tfidf 
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92605   0.90176   0.91374      2555
+           1    0.90008   0.92474   0.91225      2445
+
+   micro avg    0.91300   0.91300   0.91300      5000
+   macro avg    0.91306   0.91325   0.91299      5000
+weighted avg    0.91335   0.91300   0.91301      5000
+
+ spend_time for the fit = 199
+ 
+  spend_time for the predict = 20
+
+  
+ i_len_fns =  342886 <class 'list'>
+
+  1550801713
+  
+  
+  group12_logistic_regression_1550801713_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+  
+=========================================================================================================================================================================
+
+run for raw text
+
+lr_tfidf_raw_15gram.txt
+
+
+basic with tfidf 
+
+
+
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92570   0.90215   0.91378      2555
+           1    0.90040   0.92434   0.91221      2445
+
+   micro avg    0.91300   0.91300   0.91300      5000
+   macro avg    0.91305   0.91324   0.91299      5000
+weighted avg    0.91333   0.91300   0.91301      5000
+
+ spend_time for the fit = 211
+
+ spend_time for the predict = 13
+
+ 
+ i_len_fns =  358250 <class 'list'>
+ 
+1550805302
+
+group12_logistic_regression_1550805302_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat
+
+
+
+
+
+
+
+
+
+
+=========================================================================================================================================================================
+
+
+run for simplified cleanup only, 13 gram
+
+lr_tfidf_simplified_cleanup_only_13gram.txt
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92582   0.90372   0.91464      2555
+           1    0.90184   0.92434   0.91295      2445
+
+   micro avg    0.91380   0.91380   0.91380      5000
+   macro avg    0.91383   0.91403   0.91379      5000
+weighted avg    0.91409   0.91380   0.91381      5000
+
+
+ spend_time for the fit = 116
+
+
+
+
+ i_len_fns =  284493 <class 'list'> 
+ spend_time for the predict = 12
+
+1550824444
+
+group12_logistic_regression_1550824444_submission_cleanup_negate_w_nwn_w_swf_stat_simplified
+
+=========================================================================================================================================================================
+
+
+run for simplified cleanup only, 14 gram
+
+lr_tfidf_simplified_cleanup_only_14gram.txt
+
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92783   0.90568   0.91662      2555
+           1    0.90383   0.92638   0.91497      2445
+
+   micro avg    0.91580   0.91580   0.91580      5000
+   macro avg    0.91583   0.91603   0.91579      5000
+weighted avg    0.91609   0.91580   0.91581      5000
+
+
+ spend_time for the fit = 169
+
+ i_len_fns =  334012 <class 'list'>
+ spend_time for the predict = 18
+
+
+
+
+1550824392
+
+group12_logistic_regression_1550824392_submission_cleanup_negate_w_nwn_w_swf_stat_simplified
+
+
+=========================================================================================================================================================================
+
+
+run for simplified cleanup and separate_wp, 13 gram
+
+lr_tfidf_simplified_cleanup_13gram.txt 
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92659   0.90411   0.91521      2555
+           1    0.90227   0.92515   0.91357      2445
+
+   micro avg    0.91440   0.91440   0.91440      5000
+   macro avg    0.91443   0.91463   0.91439      5000
+weighted avg    0.91470   0.91440   0.91441      5000
+
+ spend_time for the fit = 117
+
+ spend_time for the predict = 10
+ 
+ 
+ i_len_fns =  284955 <class 'list'>
+
+
+
+1550807418
+
+group12_logistic_regression_1550807418_submission_cleanup_negate_w_nwn_w_swf_w_separate_wp_stat_simplified
+
+=========================================================================================================================================================================
+
+
+run for simplified cleanup and separate_wp, 14 gram
+
+lr_tfidf_simplified_cleanup_14gram.txt 
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92814   0.90489   0.91637      2555
+           1    0.90315   0.92679   0.91482      2445
+
+   micro avg    0.91560   0.91560   0.91560      5000
+   macro avg    0.91564   0.91584   0.91559      5000
+weighted avg    0.91592   0.91560   0.91561      5000
+
+
+ spend_time for the fit = 166
+
+ spend_time for the predict = 20
+ 
+ 
+ i_len_fns =  333673 <class 'list'>
+ 
+1550807381
+
+group12_logistic_regression_1550807381_submission_cleanup_negate_w_nwn_w_swf_w_separate_wp_stat_simplified
+
+
+
+
+=========================================================================================================================================================================
+
+run for simplified cleanup with lemmtize, 13 gram
+
+lr_tfidf_simplified_cleanup_only_w_lemmatize_13gram.txt
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92311   0.90215   0.91251      2555
+           1    0.90012   0.92147   0.91067      2445
+
+   micro avg    0.91160   0.91160   0.91160      5000
+   macro avg    0.91161   0.91181   0.91159      5000
+weighted avg    0.91187   0.91160   0.91161      5000
+
+
+ spend_time for the fit = 108
+
+
+
+
+ i_len_fns =  283063 <class 'list'>
+ 
+ spend_time for the predict = 11
+
+1550824836
+ 
+ group12_logistic_regression_1550824836_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_stat_simplified
+ 
+=========================================================================================================================================================================
+
+
+run for simplified cleanup with lemmtize, 14 gram
+
+lr_tfidf_simplified_cleanup_only_w_lemmatize_14gram.txt
+
+
+ 
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92499   0.90254   0.91363      2555
+           1    0.90068   0.92352   0.91195      2445
+
+   micro avg    0.91280   0.91280   0.91280      5000
+   macro avg    0.91283   0.91303   0.91279      5000
+weighted avg    0.91310   0.91280   0.91281      5000
+
+
+ spend_time for the fit = 178
+
+
+
+
+ i_len_fns =  334089 <class 'list'>
+ spend_time for the predict = 12
+
+
+ 1550824972
+ 
+ 
+ group12_logistic_regression_1550824972_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_stat_simplified
+ 
+ 
+  
+ 
+=========================================================================================================================================================================
+
+
+run for simplified cleanup with nwn, 13 gram
+
+lr_tfidf_simplified_cleanup_only_w_nwn_13gram
+ 
+ 
+ 
+ metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92548   0.90411   0.91467      2555
+           1    0.90216   0.92393   0.91291      2445
+
+   micro avg    0.91380   0.91380   0.91380      5000
+   macro avg    0.91382   0.91402   0.91379      5000
+weighted avg    0.91408   0.91380   0.91381      5000
+
+
+ spend_time for the fit = 89
+
+
+
+
+ i_len_fns =  264522 <class 'list'>
+ spend_time for the predict = 8
+ 
+ 
+ 1550825553
+ 
+ 
+ group12_logistic_regression_1550825553_submission_cleanup_negate_w_nwn_w_swf_stat_simplified
+ 
+=========================================================================================================================================================================
+
+
+run for simplified cleanup with nwn, 14 gram
+
+lr_tfidf_simplified_cleanup_only_w_nwn_14gram
+  
+ 
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92625   0.90450   0.91525      2555
+           1    0.90259   0.92474   0.91354      2445
+
+   micro avg    0.91440   0.91440   0.91440      5000
+   macro avg    0.91442   0.91462   0.91439      5000
+weighted avg    0.91468   0.91440   0.91441      5000
+
+  spend_time for the fit = 147
+
+
+
+
+ i_len_fns =  297461 <class 'list'>
+ spend_time for the predict = 11
+
+1550825814
+ 
+ 
+ group12_logistic_regression_1550825814_submission_cleanup_negate_w_nwn_w_swf_stat_simplified
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+=========================================================================================================================================================================
+
+run for simplified cleanup with lemmtize and separate_wp, 13 gram
+
+lr_tfidf_simplified_cleanup_w_lemmatize_13gram.txt
+
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92419   0.90176   0.91284      2555
+           1    0.89988   0.92270   0.91115      2445
+
+   micro avg    0.91200   0.91200   0.91200      5000
+   macro avg    0.91203   0.91223   0.91199      5000
+weighted avg    0.91230   0.91200   0.91201      5000
+
+ spend_time for the fit = 85
+
+ spend_time for the predict = 8
+ 
+ 
+ i_len_fns =  283682 <class 'list'>
+
+1550806441
+
+group12_logistic_regression_1550806441_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+
+
+=========================================================================================================================================================================
+
+
+run for simplified cleanup with lemmtize and separate_wp, 14 gram
+
+lr_tfidf_simplified_cleanup_w_lemmatize_14gram.txt
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92425   0.90254   0.91327      2555
+           1    0.90060   0.92270   0.91152      2445
+
+   micro avg    0.91240   0.91240   0.91240      5000
+   macro avg    0.91242   0.91262   0.91239      5000
+weighted avg    0.91268   0.91240   0.91241      5000
+ 
+ spend_time for the fit = 141
+
+ spend_time for the predict = 11
+ 
+ 
+ i_len_fns =  333997 <class 'list'>
+ 
+ 1550806746
+ 
+ group12_logistic_regression_1550806746_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+
+
+=========================================================================================================================================================================
+
+
+run for simplified cleanup and separate_wp and lemmatize and w_nwn, 13 gram
+
+lr_tfidf_simplified_cleanup_w_lemmatize_w_nwn_13gram.txt 
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92397   0.90372   0.91373      2555
+           1    0.90164   0.92229   0.91185      2445
+
+   micro avg    0.91280   0.91280   0.91280      5000
+   macro avg    0.91280   0.91300   0.91279      5000
+weighted avg    0.91305   0.91280   0.91281      5000
+
+
+ spend_time for the fit = 90
+
+
+
+
+ i_len_fns =  263993 <class 'list'>
+ spend_time for the predict = 9
+
+1550832691
+
+group12_logistic_regression_1550832691_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+
+=========================================================================================================================================================================
+
+
+run for simplified cleanup and separate_wp and lemmatize and w_nwn, 14 gram
+
+lr_tfidf_simplified_cleanup_w_lemmatize_w_nwn_14gram.txt 
+ 
+ 
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92394   0.90333   0.91352      2555
+           1    0.90128   0.92229   0.91166      2445
+
+   micro avg    0.91260   0.91260   0.91260      5000
+   macro avg    0.91261   0.91281   0.91259      5000
+weighted avg    0.91286   0.91260   0.91261      5000
+
+  spend_time for the fit = 132
+
+
+ i_len_fns =  298356 <class 'list'>
+
+ spend_time for the predict = 10
+
+ 1550815054
+ 
+ group12_logistic_regression_1550815054_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+ 
+ 
+=========================================================================================================================================================================
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ svm ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+   
+=========================================================================================================================================================================
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tfidf raw   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+svm_raw_14gram
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92808   0.90411   0.91594      2555
+           1    0.90243   0.92679   0.91445      2445
+
+   micro avg    0.91520   0.91520   0.91520      5000
+   macro avg    0.91526   0.91545   0.91519      5000
+weighted avg    0.91554   0.91520   0.91521      5000
+
+
+   
+ spend_time for the fit = 167
+
+
+spend_time for the predict = 13
+
+
+ i_len_fns =  1010594 <class 'list'>
+
+
+1550840523
+ 
+ group12_linear_svc_1550840523_submission_cleanup_negate_w_nwn_w_swf_stat_simplified
+   
+=========================================================================================================================================================================
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tfidf simplified cleanup only  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+svm_cu_only_14gram
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92634   0.90568   0.91589      2555
+           1    0.90368   0.92474   0.91409      2445
+
+   micro avg    0.91500   0.91500   0.91500      5000
+   macro avg    0.91501   0.91521   0.91499      5000
+weighted avg    0.91526   0.91500   0.91501      5000
+
+
+
+
+  spend_time for the fit = 155
+
+
+
+
+ i_len_fns =  987640 <class 'list'>
+ spend_time for the predict = 15
+ 
+ 
+1550840878
+
+group12_linear_svc_1550840878_submission_cleanup_negate_w_nwn_w_swf_stat_simplified
+    
+=========================================================================================================================================================================
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tfidf simplified cleanup with nwn  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+    
+
+svm_cu_nwn_14gram
+
+
+
+ spend_time for the fit = 156
+
+
+
+
+ i_len_fns =  899187 <class 'list'>
+
+spend_time for the predict = 12
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92517   0.90489   0.91492      2555
+           1    0.90284   0.92352   0.91306      2445
+
+   micro avg    0.91400   0.91400   0.91400      5000
+   macro avg    0.91400   0.91420   0.91399      5000
+weighted avg    0.91425   0.91400   0.91401      5000
+
+1550841207
+
+group12_linear_svc_1550841207_submission_cleanup_negate_w_nwn_w_swf_stat_simplified
+
+=========================================================================================================================================================================
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tfidf simplified cleanup and lemmatize  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+svm_cu_lemmatize_14gram.txt
+
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92505   0.90333   0.91406      2555
+           1    0.90140   0.92352   0.91232      2445
+
+   micro avg    0.91320   0.91320   0.91320      5000
+   macro avg    0.91322   0.91342   0.91319      5000
+weighted avg    0.91348   0.91320   0.91321      5000
+
+
+    
+spend_time for the fit = 171
+
+ spend_time for the predict = 13
+
+
+ i_len_fns =  987519 <class 'list'>
+
+
+1550841610
+   
+   group12_linear_svc_1550841610_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_stat_simplified
+   
+=========================================================================================================================================================================
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tfidf simplified cleanup and separate wp  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+svm_cu_swp_14gram.txt
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92700   0.90450   0.91561      2555
+           1    0.90267   0.92556   0.91397      2445
+
+   micro avg    0.91480   0.91480   0.91480      5000
+   macro avg    0.91483   0.91503   0.91479      5000
+weighted avg    0.91510   0.91480   0.91481      5000
+
+ spend_time for the fit = 161
+ 
+ 
+  spend_time for the predict = 16
+    
+	
+
+ i_len_fns =  988012 <class 'list'>
+
+ 1550842063
+ 
+ group12_linear_svc_1550842063_submission_cleanup_negate_w_nwn_w_swf_w_separate_wp_stat_simplified
+ 
+=========================================================================================================================================================================
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ tfidf simplified cleanup and all others  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+svm_all_14gram.txt
+
+
+
+metrics.classification_report for Y_test and Y_test_pred 
+
+              precision    recall  f1-score   support
+
+           0    0.92811   0.90450   0.91615      2555
+           1    0.90279   0.92679   0.91463      2445
+
+   micro avg    0.91540   0.91540   0.91540      5000
+   macro avg    0.91545   0.91565   0.91539      5000
+weighted avg    0.91573   0.91540   0.91541      5000
+
+
+ spend_time for the fit = 164
+
+
+
+
+ i_len_fns =  901848 <class 'list'>
+ 
+  spend_time for the predict = 13
+ 
+
+
+group12_linear_svc_1550842480_submission_cleanup_negate_w_lemmatize_w_nwn_w_swf_w_separate_wp_stat_simplified
+
+1550842480
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
