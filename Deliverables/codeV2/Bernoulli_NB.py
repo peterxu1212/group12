@@ -86,6 +86,11 @@ class Bernoulli_NaiveBayes_Classifier(object):
                 self.cond_probs[class_item][feature_item] = 0.0
             
         
+        print("\n\n self.features = ", self.features)
+        
+        
+        print("\n\n len of self.features = ", len(self.features))
+        
         print("\n initialized cond_probs")
 
         

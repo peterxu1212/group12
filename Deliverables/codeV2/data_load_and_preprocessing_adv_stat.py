@@ -55,27 +55,7 @@ def cleanpunc(sentence):
 
 
 def get_detail_context(str_error, str_text, i_context_range=10):
-    
-    """ 
-    
-    wlist = re.findall(r'\d+', str_error)
-    
-    #print("\n\n wlist = ", wlist)
-    
-    i_uni_number = int(wlist[0], 16)
-    
-    #print("\n\n i_uni_number = ", i_uni_number)
-    
-    i_pos_num = int(wlist[1])
-    
-    #print("\n\n i_pos_num = ", i_pos_num)
-    
-    str_chr = chr(i_uni_number)
-    
-    #print("\n\n str_chr = ", str_chr)
-    
-    """    
-    
+      
     try:
 
         i_index_uni_num_start = str_error.index(str_ec)       
@@ -102,16 +82,6 @@ def get_detail_context(str_error, str_text, i_context_range=10):
     
     str_chr = chr(i_uni_number)
     
-    
-    """
-    print("\n\n str_uni_num = ", str_uni_num)
-
-    print("\n\n i_uni_number = ", i_uni_number)
-    
-    print("\n\n str_pos_num = ", str_pos_num)
-
-    print("\n\n str_chr = ", str_chr)
-    """
     
     
     i_pos_num = int(str_pos_num)
@@ -203,97 +173,20 @@ def clean_up_data(in_str_text):
     
     return out_str_text
 
-"""
-def further_process_data(in_str_text):
-
-    
-     #word_list = uni_code_converted.split()
-                
-    #word_list = remove_stop_words(word_list)
-    
-    #uni_code_converted_wo_sw = " ".join(word_list)
-    
-    
-    
-    #raw_word_list = in_str_text.split()
-    
-    #raw_word_list = remove_stop_words(raw_word_list)
-    
-    out_str_text = in_str_text
-    
-    
-    if b_negate:
-        #out_str_text = re.sub(r'[^\w\s]', ' ', out_str_text)
-        #pass
-        out_str_text = re.sub(r'n\'t ', ' not', out_str_text, re.UNICODE)
-    
-    
-    if b_wo_punctuation:    
-        #out_str_text = re.sub(r'[^\w\s]', ' ', out_str_text, re.UNICODE)
-        out_str_text = re.sub(r'[^\w\s]', ' ', out_str_text)
-    
-    
-    tnd_words = word_tokenize(out_str_text)
-    
-    
-    #
-    #stemmer = PorterStemmer()
- 
-    #tnd_words = [stemmer.stem(word) for word in tnd_words]
-    
-    
-    #stemmer = SnowballStemmer('english')
-    #tnd_words = [stemmer.stem(word) for word in tnd_words]
-    
-        
-    if b_w_lemmatize:
-    
-        lemmatizer = WordNetLemmatizer() 
-        tnd_words = [lemmatizer.lemmatize(word) for word in tnd_words]
-    
-    
-    
-    
-    
-    
-    #file_content_w_1ws = ' '.join(word_list)
-    
-    #file_content_pure_english = re.sub("[^a-zA-Z]", " ", file_content_w_1ws)
-    
-    
-    
-    #word_list_pure_english = file_content_pure_english.split()
-    
-    #file_content_pure_english_w_1ws = ' '.join(word_list_pure_english)
-    
-    #if b_wo_punctuation:
-        #file_content = re.sub(r'[^\w\s]', ' ', file_content)
-        
-    out_str_text = " ".join(tnd_words)
-    
-    
-    
-    #out_str_text = str_text_wo_punctuation
-
-    return out_str_text   
-
-"""
-
-
 
 
 
 def normalize_sentiment(in_str_item):
     
     out_str_item = ""
-    
-
-        
+           
     if in_str_item in pos_words_filter:
-        out_str_item = " imdbpos " + in_str_item + " imdbpos "
+        #out_str_item = " imdbpos " + in_str_item + " imdbpos "
+        out_str_item = " imdbpos "
     
     if in_str_item in neg_words_filter:
-        out_str_item = " imdbneg " + in_str_item + " imdbneg "
+        #out_str_item = " imdbneg " + in_str_item + " imdbneg "
+        out_str_item = " imdbneg "
         
     
     if out_str_item == "":
@@ -329,8 +222,6 @@ def count_specific_term(in_text):
     else:
         i_overall_sentiment_calc = 0
         
-    #print("\n count_specific_term in_text = ", in_text, " i_raw_overall_sentiment = ", i_raw_overall_sentiment, " i_overall_sentiment_calc = ", i_overall_sentiment_calc)
-        
     return i_overall_sentiment_calc
     
 
@@ -339,24 +230,12 @@ def calc_overall_sentiment(in_sentiment_calc_text):
     
     tnd_sentences = sent_tokenize(in_sentiment_calc_text)
     
-    #(';', ':', ',', '.', '!', '?')
-    
-    #i_pos_cnt = 0
-    #i_neg_cnt = 0
-    
+    #(';', ':', ',', '.', '!', '?')   
     i_overall_sentiment = 0
-        
-    #i_len_sents = len(tnd_sentences)
-    
-    #s_index_list = []
-    
-    #s_index_list.append(0)
-    
+
     i_index = 0
     for sentence_item in tnd_sentences:
-    #for i_x in (0, 1, i_len_sents - 1) 
-        #if i_index >= 1 and i_index < i_len_sents - 2:
-        #    continue     
+   
         sub_sentence_items = re.split(r'([.;:,!?])', sentence_item)
         
         #print("\n sub_sentence_items = ", sub_sentence_items)
@@ -366,38 +245,13 @@ def calc_overall_sentiment(in_sentiment_calc_text):
         i_index += 1
         
         
-        
-    
-    #str_overall_sentiment = ""
-    
-    """
-    if i_overall_sentiment > 0:
-        for i_repeat in range(0, i_overall_sentiment, 1):
-            str_overall_sentiment += " imdbpositive "
-    elif i_overall_sentiment < 0:
-        for i_repeat in range(0, i_overall_sentiment, -1):
-            str_overall_sentiment += " imdbnegative "
-    else:
-        str_overall_sentiment = " imdbneutral "
-    """
-    
-    #if i_overall_sentiment >= 20:
-        
-    
-    
-    #print("\n\n calc_overall_sentiment i_overall_sentiment = ", i_overall_sentiment, " str_overall_sentiment = ", str_overall_sentiment)
     
     return i_overall_sentiment
 
 
 def further_process_data(in_str_text):
 
-    
-     #word_list = uni_code_converted.split()
-                
-    #word_list = remove_stop_words(word_list)
-    
-    #uni_code_converted_wo_sw = " ".join(word_list)
+   
     
     out_str_text = in_str_text
     
@@ -430,10 +284,13 @@ def further_process_data(in_str_text):
         out_str_text = re.sub(r"\:", " : ", out_str_text, re.UNICODE)
         out_str_text = re.sub(r"\;", " ; ", out_str_text, re.UNICODE)
         out_str_text = re.sub(r"\"", " \" ", out_str_text, re.UNICODE)
-        out_str_text = re.sub(r"\'", " \' ", out_str_text, re.UNICODE)
+        #out_str_text = re.sub(r"\'", " \' ", out_str_text, re.UNICODE)
         
         
     tmp_sentiment_calc_text = out_str_text
+    
+    if b_separate_wp:
+        out_str_text = re.sub(r"\'", " \' ", out_str_text, re.UNICODE)
         
     if b_wo_sw:
         raw_word_list = tmp_sentiment_calc_text.split()
@@ -448,12 +305,9 @@ def further_process_data(in_str_text):
         raw_word_list = remove_stop_words(raw_word_list, True)
     
         out_str_text = " ".join(raw_word_list)
-        #conservative_sw
+
     
-    
-    #print("\n\n\n\n before sentiment filter: ", out_str_text)
-    
-    
+    str_nwn = ""
     
     if b_negate:
 
@@ -462,18 +316,48 @@ def further_process_data(in_str_text):
         tmp_sentiment_calc_text = re.sub(r" never ", " not ", tmp_sentiment_calc_text, re.UNICODE)
         tmp_sentiment_calc_text = re.sub(r" no ", " not ", tmp_sentiment_calc_text, re.UNICODE)
         #tmp_sentiment_calc_text = re.sub(r" nothing ", " not ", tmp_sentiment_calc_text, re.UNICODE)
+        
+        
+        
+        tmp_sentiment_calc_text = re.sub(r"\'", " \' ", tmp_sentiment_calc_text, re.UNICODE)
+        
         tmp_sentiment_calc_text = " ".join(tmp_sentiment_calc_text.split())
         
-        
-        """
-        out_str_text = re.sub(r"n\'t ", " not ", out_str_text, re.UNICODE)
-        out_str_text = re.sub(r" never ", " not ", out_str_text, re.UNICODE)
-        out_str_text = re.sub(r" no ", " not ", out_str_text, re.UNICODE)
-        #tmp_sentiment_calc_text = re.sub(r" nothing ", " not ", tmp_sentiment_calc_text, re.UNICODE)
-        out_str_text = " ".join(out_str_text.split())
-        """
+
         
         
+        if b_w_nwn:
+            str_nwn = tmp_sentiment_calc_text
+        
+    
+    if b_w_nwn:
+        
+        #remove single character
+        
+        str_nwn =  re.sub(r"\b[a-zA-Z]\b", "", str_nwn, re.UNICODE)
+        
+        wl_nwn = str_nwn.split()
+        
+        new_wl_nwn = []
+        
+        tmp_word = ""
+        for word in wl_nwn:
+            
+            if tmp_word == "not":
+                word = tmp_word + word
+                tmp_word = ""
+                new_wl_nwn.append(word)
+                
+            else:
+                   
+                if word == "not":
+                    tmp_word = word
+                else:
+                    new_wl_nwn.append(word)
+                
+            str_nwn = " ".join(new_wl_nwn)
+            
+    
     
     i_overall_sentiment = 0
     
@@ -486,41 +370,10 @@ def further_process_data(in_str_text):
         
         tmp_sentiment_calc_text = re.sub(r" not imdbpos ", " imdbneg ", tmp_sentiment_calc_text, re.UNICODE)        
         tmp_sentiment_calc_text = re.sub(r" not imdbneg ", " imdbpos ", tmp_sentiment_calc_text, re.UNICODE)
-        #tmp_sentiment_calc_text = re.sub(r" not good ", " bad ", tmp_sentiment_calc_text, re.UNICODE)
-        #tmp_sentiment_calc_text = re.sub(r" not great ", " bad ", tmp_sentiment_calc_text, re.UNICODE)
-        #tmp_sentiment_calc_text = re.sub(r" not bad ", " good ", tmp_sentiment_calc_text, re.UNICODE)
-        
-        #tnd_sentences = sent_tokenize(tmp_sentiment_calc_text)
+
         
         i_overall_sentiment = calc_overall_sentiment(tmp_sentiment_calc_text)
         
-        #print("\n\n\n\n tnd_sentences = ", tnd_sentences)
-        """
-        if i_overall_sentiment >= 20:
-            
-            out_str_text = "  imdbpositive imdbpositive imdbpositive "
-        elif i_overall_sentiment >= 10 and i_overall_sentiment < 20:
-            out_str_text += " . imdbpositive imdbpositive "
-        elif i_overall_sentiment >= 5 and i_overall_sentiment < 10:
-            out_str_text += " . imdbpositive "
-        elif i_overall_sentiment < 5 and i_overall_sentiment > -5:
-            #imdbneutral
-            pass
-        elif i_overall_sentiment <= -5 and i_overall_sentiment > -10:
-            out_str_text += " . imdbnegative "
-        elif i_overall_sentiment <= -10 and i_overall_sentiment > -20:
-            out_str_text += " . imdbnegative imdbnegative "
-        elif i_overall_sentiment <= -20:
-            out_str_text = "  imdbnegative imdbnegative imdbnegative "
-        else:
-            pass
-        """    
-        
-        #out_str_text += str_overall_sentiment
-        #out_str_text = str_overall_sentiment
-
-
-    #print("\n\n\n\n after sentiment_words_filter: ", out_str_text)
 
 
     
@@ -528,6 +381,8 @@ def further_process_data(in_str_text):
         #out_str_text = re.sub(r'[^\w\s]', ' ', out_str_text, re.UNICODE)
         out_str_text = re.sub(r'[^\w\s]', ' ', out_str_text)
         tmp_sentiment_calc_text = re.sub(r'[^\w\s]', ' ', tmp_sentiment_calc_text)
+        
+        str_nwn = re.sub(r'[^\w\s]', ' ', str_nwn)
     
     
     #print("\n\n\n\n before lemmatize: ", out_str_text)
@@ -547,6 +402,9 @@ def further_process_data(in_str_text):
     
     senti_tnd_words = word_tokenize(tmp_sentiment_calc_text)
     
+    
+    nwn_tnd_words = word_tokenize(str_nwn) 
+    
     #
     #stemmer = PorterStemmer()
  
@@ -560,8 +418,8 @@ def further_process_data(in_str_text):
         
         senti_tnd_words = [stemmer.stem(word) for word in senti_tnd_words]
         
+        nwn_tnd_words = [stemmer.stem(word) for word in nwn_tnd_words]
         
-    
         
     if b_w_lemmatize:
     
@@ -571,35 +429,38 @@ def further_process_data(in_str_text):
         
         senti_tnd_words = [lemmatizer.lemmatize(word) for word in senti_tnd_words]
     
+        nwn_tnd_words = [lemmatizer.lemmatize(word) for word in nwn_tnd_words]
     
     
     
-    
-    
-    #file_content_w_1ws = ' '.join(word_list)
-    
-    #file_content_pure_english = re.sub("[^a-zA-Z]", " ", file_content_w_1ws)
-    
-    
-    
-    #word_list_pure_english = file_content_pure_english.split()
-    
-    #file_content_pure_english_w_1ws = ' '.join(word_list_pure_english)
-    
-    #if b_wo_punctuation:
-        #file_content = re.sub(r'[^\w\s]', ' ', file_content)
         
     out_str_text = " ".join(tnd_words)
     
     tmp_sentiment_calc_text = " ".join(senti_tnd_words)
     
-    
+    str_nwn = " ".join(nwn_tnd_words)
     
     #out_str_text = str_text_wo_punctuation
 
-    return out_str_text, i_overall_sentiment, tmp_sentiment_calc_text, out_str_nums, out_str_emoticons
+    return out_str_text, i_overall_sentiment, tmp_sentiment_calc_text, out_str_nums, out_str_emoticons, str_nwn
 
 
+
+def review_to_wordlist(review_text, remove_stopwords=False):
+
+    #tmp_soup = BeautifulSoup(review, 'html.parser')
+    
+    # Get text only
+    #review_text = tmp_soup.get_text()
+    # Remove non-letters        
+    letters_only = re.sub("[^a-zA-Z]", " ", review_text)
+    # Convert to lower case, split into individual words
+    words = letters_only.lower().split()                                   
+    # searching in a set rather than a list is faster in python
+    if remove_stopwords:
+        stops = set(stopwords.words("english"))
+        words = [w for w in words if not w in stops]
+    return words
 
 
 def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_file_name_list = [], b_guess_when_exception=False, b_test=False, b_clean_up=False):
@@ -646,6 +507,8 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
         str_nums = "none"
         
         str_emoticons = "none"
+        
+        str_nwn = ""
     
         try:
                         
@@ -662,6 +525,9 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
 
                 file_content = file_handle.read()
                 
+                pre_processed_item['raw_text'] = file_content
+                
+                
                 
                 
                 
@@ -674,6 +540,9 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
                 
                 file_content_wo_html_tags = tmp_soup.get_text()
                 
+                
+                
+                pre_processed_item['text_simple_cleanup'] = " ".join(review_to_wordlist(file_content_wo_html_tags, remove_stopwords=True))
                 
                 
                 if str_file_name == "10327_7.txt":
@@ -689,7 +558,9 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
                     print("\n\n\n\n\n\n file_content_wo_html_tags_lc = ", file_content_wo_html_tags_lc)
                 
                 
-                str_text_cleaned = clean_up_data(file_content_wo_html_tags_lc)
+                #str_text_cleaned = clean_up_data(file_content_wo_html_tags_lc)
+                
+                str_text_cleaned = file_content_wo_html_tags_lc
                 
                 
                 
@@ -713,7 +584,7 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
                 
                 
                 
-                code_converted = unicodedata.normalize('NFKD', str_text_cleaned).encode('ascii')
+                code_converted = unicodedata.normalize('NFKD', str_text_cleaned).encode('ascii', errors='ignore')
                 
                 
                 if str_file_name == "10327_7.txt":
@@ -733,7 +604,7 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
                 
                 #str_processed_text = uni_code_converted
                 
-                str_processed_text, i_oa_sentiment, str_senti_text, str_nums, str_emoticons = further_process_data(uni_code_converted)
+                str_processed_text, i_oa_sentiment, str_senti_text, str_nums, str_emoticons, str_nwn = further_process_data(uni_code_converted)
                 
                 
                 
@@ -741,7 +612,8 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
                 if str_file_name == "10327_7.txt":
                     print("\n\n\n\n\n\n str_file_name = ", str_file_name)
                     print("\n\n\n\n\n\n str_processed_text = ", str_processed_text) 
-                    print("\n\n\n\n\n\n str_senti_text = ", str_senti_text) 
+                    print("\n\n\n\n\n\n str_senti_text = ", str_senti_text)
+                    print("\n\n\n\n\n\n str_nwn = ",  str_nwn)
                 
                             
                 
@@ -807,13 +679,14 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
                 
                 #str_processed_text = uni_code_converted
                 
-                str_processed_text, i_oa_sentiment, str_senti_text, str_nums, str_emoticons = further_process_data(uni_code_converted)
+                str_processed_text, i_oa_sentiment, str_senti_text, str_nums, str_emoticons, str_nwn = further_process_data(uni_code_converted)
                 
                 
                 if str_file_name == "10327_7.txt":
                     print("\n\n\n\n\n\n exception str_file_name = ", str_file_name)
                     print("\n\n\n\n\n\n str_processed_text = ", str_processed_text)
                     print("\n\n\n\n\n\n str_senti_text = ", str_senti_text)
+                    print("\n\n\n\n\n\n str_nwn = ",  str_nwn)
                 
                 #str_processed_text = tmp_processed_text
                 
@@ -826,6 +699,7 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
         
         pre_processed_item['text'] = str_processed_text
         pre_processed_item['senti_text'] = str_senti_text
+        pre_processed_item['str_nwn'] = str_nwn
         
         
         pre_processed_item['y_val'] = in_int_y_val
@@ -897,30 +771,6 @@ def pre_process_data_files(in_str_json_fn, in_str_file_path, in_int_y_val, in_fi
 
 
 
-"""
-raw_text = '''
-<td><a href="http://www.irit.fr/SC">Signal et Communication</a>
-<br/><a href="http://www.irit.fr/IRT">Ingénierie Réseaux et Télécommunications</a>
-</td>
-'''
-
-print("\n\n raw_text = \n", raw_text)
-
-
-
-
-soup = BeautifulSoup(raw_text, 'html.parser')
-
-#print("\n\n soup = \n", soup.prettify())
-
-text_wo_html_tags = soup.get_text()
-
-
-print("\n\n text_wo_html_tags = \n", text_wo_html_tags)
-
-"""
-
-
 
 
 
@@ -953,6 +803,8 @@ b_w_lemmatize = True
 
 b_w_stemming = False
 
+
+b_w_nwn = True
 
 b_wo_punctuation = False
 
@@ -1120,6 +972,11 @@ if b_w_lemmatize:
 if b_w_stemming:
     str_fn_postfix += "_w_stemming"
     
+
+if b_w_nwn:
+    str_fn_postfix += "_w_nwn"
+   
+    
 if b_sentiment_words_filter:
     str_fn_postfix += "_w_swf"
     
@@ -1132,7 +989,7 @@ if True:
     str_fn_postfix += "_stat"
     
 
-#str_fn_postfix += "_try"
+str_fn_postfix += "_simplified"
 
 
 str_json_fn_training = "../" + "training" + "_set" + str_fn_postfix + ".json"

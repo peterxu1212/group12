@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 
 from sklearn.feature_extraction.text import CountVectorizer
 
-from sklearn.feature_extraction.text import TfidfVectorizer
+#from sklearn.feature_extraction.text import TfidfVectorizer
 
 from sklearn.feature_extraction.text import TfidfTransformer
 
@@ -16,11 +16,11 @@ from sklearn.preprocessing import Normalizer
 
 from sklearn.model_selection import GridSearchCV
 
-from sklearn.model_selection import cross_val_predict
+#from sklearn.model_selection import cross_val_predict
 
-import numpy as np
+#import numpy as np
 
-from sklearn.exceptions import FitFailedWarning
+#from sklearn.exceptions import FitFailedWarning
 import warnings
 
 from sklearn.pipeline import Pipeline
@@ -29,7 +29,7 @@ from sklearn.pipeline import Pipeline
 
 from sklearn import metrics
 
-from sklearn.linear_model import LogisticRegression
+#from sklearn.linear_model import LogisticRegression
 
 #from sklearn.svm import SVC
 
@@ -51,76 +51,9 @@ import json
 
 #from pathlib import Path
 
-import re
+#import re
 
-from bs4 import BeautifulSoup
-
-def pre_process_data(in_str_file_path, in_int_y_val, in_file_name_list = [], b_guess_when_exception=False, b_test=False):
-    
-    out_X_list_raw = []
-    out_Y_list_raw = []
-    
-    out_files_list_raw = []
-    out_pure_files_list_raw = []
-        
-    #for str_file_name in in_file_name_list[:100]:
-    for str_file_name in in_file_name_list:
-    
-        #print(str_file_name, type(str_file_name))
-        str_full_file_name = in_str_file_path + str_file_name
-        file_content = ""
-    
-        try:
-            
-            file_handle = open(str_full_file_name, encoding = 'gbk',errors = 'ignore')
-            #file_handle = open(str_full_file_name, encoding = 'gb18030',errors = 'ignore')
-            #file_handle = open(str_full_file_name, encoding = 'utf-8',errors = 'ignore')
-            
-            
-            #file = open(path, encoding='gb18030'）
-            
-            
-            
-            #file_content = Path(str_full_file_name).read_text()
-            file_content = file_handle.read()
-            
-            tmp_soup = BeautifulSoup(file_content, 'html.parser')
-            
-            file_content = tmp_soup.get_text()
-            
-            file_content = re.sub("[^a-zA-Z]", " ", file_content)
-            
-            #if b_wo_punctuation:
-                #file_content = re.sub(r'[^\w\s]', ' ', file_content)
-                
-            file_content = file_content.lower()
-            
-            #if str_file_name == "10327_7.txt":
-            #    print("\n\n\n\n\n\n str_file_name = ", str_file_name)
-            #    print("\n\n\n\n\n\n file_content = ", file_content)
-            
-            
-            if b_test:
-                file_content = "bad"
-            
-        except Exception as e:
-            str_tmp = "pre_process_data_files Exception e = " + str(e) + " when execute read_text for str_full_file_name = \n\n" + str(str_full_file_name) +  "\n\n"
-        
-            logger.warning("%s", str_tmp)
-            #print(str_tmp)
-            
-            if not b_guess_when_exception:
-                continue
-            else:
-                file_content = "bad"
-                
-    
-        out_X_list_raw.append(file_content)
-        out_Y_list_raw.append(in_int_y_val)
-        out_files_list_raw.append(str_full_file_name)
-        out_pure_files_list_raw.append(str_file_name)
-    
-    return out_X_list_raw, out_Y_list_raw, out_files_list_raw, out_pure_files_list_raw
+#from bs4 import BeautifulSoup
 
 
 
@@ -140,18 +73,21 @@ b_w_lemmatize = True
 b_w_stemming = False
 
 
+b_w_nwn = True
+
 b_wo_punctuation = False
 
 
 
-b_sentiment_words_filter = False
+b_sentiment_words_filter = True
 
 
 b_negate = b_sentiment_words_filter
 
 
-b_negate = True
+#b_negate = True
 
+b_separate_wp = True
 
 
 
@@ -199,14 +135,27 @@ if b_w_stemming:
     str_fn_postfix += "_w_stemming"
     
     
+if b_w_nwn:
+    str_fn_postfix += "_w_nwn"
+    
+    
+    
 if b_sentiment_words_filter:
     str_fn_postfix += "_w_swf"
+
+
+if b_separate_wp:
+    str_fn_postfix += "_w_separate_wp"
+
 
 
 
 if True:
     str_fn_postfix += "_stat"
     
+
+str_fn_postfix += "_simplified"
+
 
 b_use_original_text = True
 
@@ -216,6 +165,9 @@ str_json_fn_training = "../" + "training" + "_set" + str_fn_postfix + ".json"
 str_json_fn_testing = "../" + "testing" + "_set" + str_fn_postfix + ".json"
 
 
+logger.info("str_json_fn_training = %s \n", str_json_fn_training)
+
+logger.info("str_json_fn_testing = %s \n", str_json_fn_testing)
 
 logger.info("begin pre-process for training datas... ")
 
@@ -254,11 +206,22 @@ tmp_pure_files_list_raw = []
 
 for data_point in real_training_data_set_sorted:
 	
-	tmp_list_X_raw.append(data_point['text'])
-	tmp_list_Y_raw.append(data_point['y_val'])
+    str_st = data_point['text']
+    
+    if b_use_original_text:
+        #str_st = data_point['text']
+        
+        str_st = data_point['str_nwn']
+     
+        
+        #str_st = data_point['raw_text']
+    
+    
+    tmp_list_X_raw.append(str_st)
+    tmp_list_Y_raw.append(data_point['y_val'])
 	
-	tmp_files_list_raw.append(data_point['full_file_name'])	
-	tmp_pure_files_list_raw.append(data_point['id'])
+    tmp_files_list_raw.append(data_point['full_file_name'])	
+    tmp_pure_files_list_raw.append(data_point['id'])
 
 X_list_raw.extend(tmp_list_X_raw)
 Y_list_raw.extend(tmp_list_Y_raw)
@@ -310,11 +273,20 @@ tmp_pure_files_list_raw = []
 
 for data_point in real_testing_data_set_sorted:
 	
-	tmp_list_X_raw.append(data_point['text'])
-	tmp_list_Y_raw.append(data_point['y_val'])
+    str_st = data_point['text']
+    
+    if b_use_original_text:
+        #str_st = data_point['text']
+        
+        str_st = data_point['str_nwn']
+        
+        #str_st = data_point['raw_text']
+
+    tmp_list_X_raw.append(str_st)
+    tmp_list_Y_raw.append(data_point['y_val'])
 	
-	tmp_files_list_raw.append(data_point['full_file_name'])	
-	tmp_pure_files_list_raw.append(data_point['id'])
+    tmp_files_list_raw.append(data_point['full_file_name'])	
+    tmp_pure_files_list_raw.append(data_point['id'])
 
 X_list_real_test_raw.extend(tmp_list_X_raw)
 Y_list_real_test_raw.extend(tmp_list_Y_raw)
@@ -432,6 +404,7 @@ pclf = Pipeline([
     #('vect', CountVectorizer(min_df=2, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
     #('vect', CountVectorizer(min_df=0.0002, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
     #('vect', CountVectorizer(min_df=1, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
+    #('vect', CountVectorizer(min_df=2, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
     ('vect', CountVectorizer(min_df=2, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
     ('tfidf', TfidfTransformer(use_idf=True, smooth_idf=True, sublinear_tf=True)),
     ('norm', Normalizer()),
@@ -494,6 +467,10 @@ params = {"clf__C": [1, 4, 16, 32]
 model_search_SVM = GridSearchCV(pclf, param_grid = params, scoring = 'roc_auc', cv = 5, verbose = 10, error_score='raise', iid=True, n_jobs=2)
 
 
+
+st = int(time.time())
+
+
 logger.info("start fit for pclf")
 
 
@@ -533,15 +510,26 @@ if b_do_model_selection:
 
 else:
     
-    pclf.fit(X_train_whole, Y_train_whole)
+    #pclf.fit(X_train_whole, Y_train_whole)
        
-    #pclf.fit(X_train, Y_train)
+    pclf.fit(X_train, Y_train)
     
     #pclf.fit(X_train[0:10000], Y_train[0:10000])
 
 
 
 logger.info("end fit for pclf or model_search_SVM")
+
+
+
+
+et = int(time.time())
+
+
+spend_time = et - st
+
+
+logger.info("\n spend_time for the fit = %d", spend_time)
 
 tmp_fns = []
 
@@ -692,6 +680,10 @@ logger.info("start predict for X_test ")
 
 #Y_test_cv_pred = cross_val_predict(pclf, X_test, Y_test, cv=5, n_jobs=2)
 
+
+st = int(time.time())
+
+
 Y_test_pred = []
 
 if b_do_model_selection:
@@ -706,6 +698,12 @@ else:
 
 
 
+et = int(time.time())
+
+
+spend_time = et - st
+
+logger.info("\n spend_time for the predict = %d", spend_time)
 
 
 

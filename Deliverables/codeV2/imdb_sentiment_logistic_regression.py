@@ -69,11 +69,13 @@ b_w_lemmatize = True
 b_w_stemming = False
 
 
+b_w_nwn = True
+
 b_wo_punctuation = False
 
 
 
-b_sentiment_words_filter = False
+b_sentiment_words_filter = True
 
 
 b_negate = b_sentiment_words_filter
@@ -125,6 +127,10 @@ if b_w_lemmatize:
 
 if b_w_stemming:
     str_fn_postfix += "_w_stemming"
+
+
+if b_w_nwn:
+    str_fn_postfix += "_w_nwn"
     
     
 if b_sentiment_words_filter:
@@ -139,6 +145,8 @@ if True:
     str_fn_postfix += "_stat"
 
 
+
+str_fn_postfix += "_simplified"
 #str_fn_postfix += "_try"
 
 
@@ -195,10 +203,16 @@ for data_point in real_training_data_set_sorted:
 	
     i_se = data_point['i_sentiment_estimate']
     
-    #str_st = data_point['text']
+    str_st = data_point['text']
     
     if b_use_original_text:
-        str_st = data_point['text']
+        #str_st = data_point['text']
+        #str_st = data_point['text_simple_cleanup']
+        
+        #str_st = data_point['raw_text']
+        
+        str_st = data_point['str_nwn']
+        
     else:
         str_st = data_point['senti_text']
     
@@ -279,9 +293,17 @@ for data_point in real_testing_data_set_sorted:
     
     i_se = data_point['i_sentiment_estimate']
     
-    #str_st = data_point['text']   
+    str_st = data_point['text']   
     if b_use_original_text:
-        str_st = data_point['text']
+        #str_st = data_point['text']
+        #str_st = data_point['text_simple_cleanup']
+        
+        
+        str_st = data_point['str_nwn']
+        
+        
+        #str_st = data_point['raw_text']
+    
     else:
         str_st = data_point['senti_text']
     
@@ -420,10 +442,12 @@ pclf = Pipeline([
     #('vect', CountVectorizer(min_df=2, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4), stop_words = 'english')),
     #('vect', CountVectorizer(min_df=2, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
     #('vect', CountVectorizer(min_df=0.0002, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
-    ('vect', CountVectorizer(min_df=0.0002, max_df=1.0, max_features=50000, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
+    #('vect', CountVectorizer(min_df=0.0002, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
+    ('vect', CountVectorizer(min_df=0.0002, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 3))),
+    #('tfidf', TfidfTransformer(use_idf=False, smooth_idf=False, sublinear_tf=False)),
     ('tfidf', TfidfTransformer(use_idf=True, smooth_idf=True, sublinear_tf=True)),
     ('norm', Normalizer()),
-    ('clf', LogisticRegression(penalty = 'l2', dual = True, random_state = 0, solver='liblinear', C=20)),
+    ('clf', LogisticRegression(penalty = 'l2', dual = True, random_state = 0, solver='liblinear', C=20, max_iter=1000)),
 ])
     
     
@@ -481,6 +505,10 @@ params = {"clf__C": [20]
 model_search_LR = GridSearchCV(pclf, param_grid = params, scoring = 'roc_auc', cv = 5, verbose = 10, error_score='raise', iid=True, n_jobs=2)
 
 
+
+
+st = int(time.time())
+
 logger.info("start fit for pclf")
 
 if b_do_model_selection:
@@ -531,6 +559,16 @@ else:
 logger.info("end fit for pclf")
 
 
+
+et = int(time.time())
+
+
+spend_time = et - st
+
+
+logger.info("\n spend_time for the fit = %d", spend_time)
+
+
 #tmp_vect_X = pclf.named_steps['vect'].X
 
 
@@ -554,6 +592,7 @@ print("\n\n\n\n i_len_fns = ", i_len_fns, type(tmp_fns))
 
 
 #print("\n\n\n\n vect get_feature_names", pclf.named_steps['vect'].get_feature_names())
+"""
 
 tmp_idfs = []
 
@@ -670,6 +709,8 @@ print("\n\n\n\n  largest: \n", i_buffer)
 for x in range(i_len_fns - 1, i_len_fns - 1 - i_buffer, -1):
     print("\n\n", pclf_feature_set_sorted[x])
 
+"""
+
 
 
 logger.info("start predict for X_test ")
@@ -677,6 +718,10 @@ logger.info("start predict for X_test ")
 #Y_test_pred = model_search_LR.predict(X_test)
 
 #Y_test_cv_pred = cross_val_predict(pclf, X_test, Y_test, cv=5, n_jobs=2)
+
+
+
+st = int(time.time())
 
 Y_test_pred = []
 
@@ -687,6 +732,14 @@ if b_do_model_selection:
 else:
     Y_test_pred = pclf.predict(X_test)
 
+
+
+et = int(time.time())
+
+
+spend_time = et - st
+
+logger.info("\n spend_time for the predict = %d", spend_time)
 
 
 Y_test_cv_pred = []

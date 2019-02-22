@@ -5,30 +5,12 @@ from Bernoulli_NB import Bernoulli_NaiveBayes_Classifier
 
 from sklearn.model_selection import train_test_split
 
-#from sklearn.feature_extraction.text import CountVectorizer
-
-#from sklearn.feature_extraction.text import TfidfVectorizer
-
-#from sklearn.feature_extraction.text import TfidfTransformer
-
-#from sklearn.preprocessing import Normalizer
-
-#from sklearn.model_selection import GridSearchCV
-
-#from sklearn.model_selection import cross_val_predict
 
 import numpy as np
 
-#from sklearn.exceptions import FitFailedWarning
-#import warnings
-
-#from sklearn.pipeline import Pipeline
-
-#from sklearn.naive_bayes import MultinomialNB
 
 from sklearn import metrics
 
-#from sklearn.linear_model import LogisticRegression
 
 import csv
 
@@ -41,21 +23,12 @@ import logging.config
 
 import json
 
-#from os import listdir
-#from os.path import isfile, join
-
-#from pathlib import Path
 
 import re
-
-#from bs4 import BeautifulSoup
-
-
 
 
 #b_partial = True
 b_partial = False
-
 
 
 b_cleanup = True
@@ -67,6 +40,8 @@ b_w_lemmatize = True
 
 b_w_stemming = False
 
+
+b_w_nwn = True
 
 b_wo_punctuation = False
 
@@ -124,6 +99,10 @@ if b_w_lemmatize:
 
 if b_w_stemming:
     str_fn_postfix += "_w_stemming"
+
+
+if b_w_nwn:
+    str_fn_postfix += "_w_nwn"
     
     
 if b_sentiment_words_filter:
@@ -194,10 +173,10 @@ for data_point in real_training_data_set_sorted:
 	
     i_se = data_point['i_sentiment_estimate']
     
-    #str_st = data_point['text']
+    str_st = data_point['text']
     
     if b_use_original_text:
-        str_st = data_point['text']
+        str_st = data_point['text_simple_cleanup']
     else:
         str_st = data_point['senti_text']
     
@@ -278,9 +257,11 @@ for data_point in real_testing_data_set_sorted:
     
     i_se = data_point['i_sentiment_estimate']
     
-    #str_st = data_point['text']   
+    str_st = data_point['text']   
     if b_use_original_text:
-        str_st = data_point['text']
+        #str_st = data_point['text']
+        str_st = data_point['text_simple_cleanup']
+            
     else:
         str_st = data_point['senti_text']
     
@@ -411,95 +392,6 @@ print("len of X_train_whole and Y_train_whole", len(X_train_whole), len(Y_train_
 
 print("len of X_train and Y_train", len(X_train), len(Y_train))
 
-
-
-
-"""
-pclf = Pipeline([
-    #('vect', CountVectorizer(min_df=2, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4), stop_words = 'english')),
-    #('vect', CountVectorizer(min_df=2, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 4))),
-    ('vect', CountVectorizer(min_df=0.0002, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 1))),
-    #('tfidf', TfidfTransformer(use_idf=True, smooth_idf=True, sublinear_tf=True)),
-    ('norm', Normalizer()),
-    #('clf', LogisticRegression(penalty = 'l2', dual = True, random_state = 0, solver='liblinear', C=20)),
-    ('clf', BernoulliNB(alpha=1.0, binarize=None, class_prior=None, fit_prior=True))
-])
-"""    
-    
-
-    
-
-"""
-vectorizer = CountVectorizer(min_df=0.0002, max_df=1.0, max_features=None, strip_accents='unicode', analyzer='word', token_pattern=r'\w{1,}', ngram_range=(1, 1))
-
-
-logger.info("start vectorizer.fit ")
-
-
-count_vect = vectorizer.fit(X_train)
-
-
-
-logger.info("end vectorizer.fit ")
-
-
-
-logger.info("start count_vect.transform for X_train ")
-
-X_train_counts = count_vect.transform(X_train)
-
-logger.info("end count_vect.transform for X_train ")
-
-
-
-logger.info("start count_vect.transform for X_test ")
-
-X_test_counts = count_vect.transform(X_test)
-
-logger.info("end count_vect.transform for X_test ")
-
-#print("\n\n\n\n X_train_counts toarray: \n\n", X_train_counts.toarray())
-
-#print("\n\n\n\n X_test_counts toarray: \n\n", X_test_counts.toarray())
-
-
-
-logger.info("start count_vect.transform for X_list_real_test_raw ")
-
-X_real_test_counts = count_vect.transform(X_list_real_test_raw)
-
-logger.info("end count_vect.transform for X_list_real_test_raw ")
-
-
-
-
-#print("X_train_counts = \n\n", X_train_counts)
-
-
-#print("\n\n\n\n")
-
-
-
-tmp_fns = []
-
-
-    
-tmp_fns = vectorizer.get_feature_names()
-
-i_len_fns = len(tmp_fns)
-
-print("\n\n\n\n tmp_fns = ", tmp_fns, i_len_fns, type(tmp_fns))
-
-
-print("\n\n X_train_counts", type(X_train_counts), X_train_counts.shape)
-
-
-print("\n\n X_test_counts", type(X_test_counts), X_test_counts.shape)
-
-
-
-print("\n\n X_real_test_counts", type(X_real_test_counts), X_real_test_counts.shape)
-"""
 
 
 
